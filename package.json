@@ -1,0 +1,13 @@
+{
+  "name": "roma-fresh-fruit-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Roma Fresh Fruit Export — a self-contained static HTML website (no framework, no build tool required).",
+  "scripts": {
+    "build": "echo \"Nothing to build — this is a plain static HTML site. index.html is already production-ready.\"",
+    "start": "npx --yes serve . -l 8888"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

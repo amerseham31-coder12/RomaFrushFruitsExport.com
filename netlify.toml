@@ -1,0 +1,37 @@
+## Netlify configuration for the Roma Fresh Fruit Export website.
+##
+## This is a plain, self-contained static HTML site — one index.html with
+## all CSS, JavaScript, images, and video inlined directly into the file.
+## There is nothing to compile, bundle, or transpile, so there is no real
+## "build step": Netlify only needs to publish this folder as-is.
+
+[build]
+  # Folder that gets published to Netlify's CDN. "." means "this folder"
+  # (the same folder this netlify.toml file lives in).
+  publish = "."
+
+  # No compiler/bundler is needed. This command is a harmless no-op kept
+  # only so Netlify's UI always shows a successful build step.
+  command = "echo 'Static site — no build step required'"
+
+# Any URL that doesn't match a real file falls back to index.html.
+# The site is a single page that uses in-page anchors (#products, #contact,
+# etc.), so this just guarantees a shared link or refresh never 404s.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Cache the (large, versioned-by-deploy) HTML file briefly at the edge while
+# still letting Netlify serve instantly on repeat visits during a deploy.
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
